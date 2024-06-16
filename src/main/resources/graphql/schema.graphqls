@@ -1,0 +1,21 @@
+type Query {
+    getBook(id: ID!): Book
+    getAllBooks: [Book]
+}
+
+type Mutation {
+    saveBook(bookInput: BookInput!): Book 
+    updateBook(id: ID!, bookInput: BookInput!): Book
+    deleteBook(id: ID!): Boolean
+}
+
+type Book {
+    id: ID!
+    bookName: String!,
+    pages: Int!
+}
+
+input BookInput {
+    bookName: String!,
+    pages: Int!
+}
