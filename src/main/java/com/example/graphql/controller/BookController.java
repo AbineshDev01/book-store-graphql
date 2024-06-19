@@ -34,6 +34,11 @@ public class BookController {
         return bookService.getBookById(id);
     }
 
+    @QueryMapping
+    public List<Book> getBooksByAuthor(@Argument Integer authorId) {
+        return bookService.getAllBooksByAuthor(authorId);
+    }
+
     @MutationMapping
     public Book updateBook(@Argument Integer id, @Argument BookInput bookInput) {
         return bookService.updateBook(id, bookInput);

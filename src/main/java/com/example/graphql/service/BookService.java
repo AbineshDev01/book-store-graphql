@@ -33,6 +33,10 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public List<Book> getAllBooksByAuthor(Integer authorId) {
+        return bookRepository.findByAuthor(authorId);
+    }
+
     public Book getBookById(Integer id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException("Book does not exists for the id: " + id));
