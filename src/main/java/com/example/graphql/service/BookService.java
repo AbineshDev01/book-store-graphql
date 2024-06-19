@@ -16,10 +16,17 @@ import lombok.RequiredArgsConstructor;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final AuthorService authorService;
 
     public Book saveBook(BookInput bookInput) {
         return bookRepository.save(
-                new Book(bookInput.bookName(), bookInput.pages()));
+            new Book(
+                bookInput.bookName(), 
+                bookInput.price(), 
+                bookInput.pages(), 
+                authorService.getAuthor(bookInput.authorId())
+            )
+        );
     }
 
     public List<Book> getAllBooks() {
@@ -34,8 +41,10 @@ public class BookService {
     public Book updateBook(Integer id, BookInput bookInput) {
         Book existingBook = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException("Book does not exists for the id: " + id));
-        existingBook.setBookName(bookInput.bookName());
-        existingBook.setPages(bookInput.pages());
+        if(bookInput.bookName() != null) existingBook.setBookName(bookInput.bookName());
+        if(bookInput.pages() != null) existingBook.setPages(bookInput.pages());
+        if(bookInput.price() != null) existingBook.setPrice(bookInput.price());
+        if(bookInput.authorId() != null) existingBook.setAuthor(authorService.getAuthor(bookInput.authorId()));
 
         return bookRepository.save(existingBook);
     }

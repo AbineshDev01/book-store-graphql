@@ -14,4 +14,11 @@ public class GlobalExceptionHandler {
             .message(bookNotFoundException.getMessage())
             .build();
     }
+
+    @GraphQlExceptionHandler
+    public GraphQLError handleException(AuthorNotFoundException authorNotFoundException) {
+        return GraphQLError.newError()
+            .message(authorNotFoundException.getMessage())
+            .build();
+    }
 }

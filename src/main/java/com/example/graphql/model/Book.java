@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,17 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String bookName;
+    private Double price;
     private Integer pages;
 
-    public Book(String bookName, Integer pages) {
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
+
+    public Book(String bookName, Double price, Integer pages, Author author) {
         this.bookName = bookName;
         this.pages = pages;
+        this.price = price;
+        this.author = author;
     }
 }
