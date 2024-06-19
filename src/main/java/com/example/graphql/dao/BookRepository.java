@@ -13,6 +13,9 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("from Book b where b.author.id = :id")
     List<Book> findByAuthor(@Param("id") Integer authorId);
 
+    // @Query("from Book where author.id = ?1")
+    // List<Book> findBookByAuthor(Integer authorId);
+
     // another way to write query
     // List<Book> findByAuthorId(Integer authorId);
 
